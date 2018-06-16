@@ -1,4 +1,4 @@
-package pl.coderslab;
+package pl.ust.bookshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

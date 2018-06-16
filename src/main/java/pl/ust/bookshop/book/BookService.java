@@ -1,8 +1,6 @@
-package pl.coderslab.workshop5.service;
+package pl.ust.bookshop.book;
 
 import java.util.List;
-
-import pl.coderslab.workshop5.model.Book;
 
 public interface BookService {
 	     

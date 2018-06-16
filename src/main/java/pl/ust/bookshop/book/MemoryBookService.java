@@ -1,4 +1,4 @@
-package pl.coderslab.workshop5.service;
+package pl.ust.bookshop.book;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,8 +7,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import pl.coderslab.workshop5.model.Book;
 
 //@Component
 @Service("memoryBookService")

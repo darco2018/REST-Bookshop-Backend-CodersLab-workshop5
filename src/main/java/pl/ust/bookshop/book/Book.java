@@ -1,5 +1,5 @@
 
-package pl.coderslab.workshop5.model;
+package pl.ust.bookshop.book;
 
 import java.util.concurrent.atomic.AtomicLong;
 

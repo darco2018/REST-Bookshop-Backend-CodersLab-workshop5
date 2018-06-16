@@ -1,5 +1,5 @@
 
-package pl.coderslab.workshop5.controller;
+package pl.ust.bookshop.book;
 /*
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import pl.coderslab.workshop5.model.Book;
-import pl.coderslab.workshop5.service.BookService;
 
 // @ResponseBody As of version 4.0 this annotation can also be added on the type level
 // in which case it is inherited and does not need to be added on the method
