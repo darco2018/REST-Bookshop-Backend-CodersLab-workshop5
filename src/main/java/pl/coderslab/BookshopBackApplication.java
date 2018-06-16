@@ -4,9 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Workshop5BackendApplication {
+public class BookshopBackApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Workshop5BackendApplication.class, args);
+		SpringApplication.run(BookshopBackApplication.class, args);
 	}
 }
+
