@@ -36,7 +36,6 @@ public class Publisher extends BaseEntity {
 	@NotEmpty 
 	@Column
 	private String name;
-	
 	@OneToMany(mappedBy = "publisher", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
 	@Singular private List<Book> books;
 
