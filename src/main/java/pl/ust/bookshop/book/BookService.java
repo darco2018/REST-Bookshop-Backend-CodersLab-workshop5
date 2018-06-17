@@ -4,20 +4,19 @@ import java.util.List;
 
 public interface BookService {
 	     
-		Book findById(long id);
-	     
-		Book findByName(String book);
-	     
 	    void saveBook(Book book);
-	     
-	    void updateBook(Book book);
-	     
 	    void deleteBookById(long id);
-	 
+	    Book findById(long id);
 	    List<Book> findAllBooks(); 
+	    boolean isBookExist(Book book);
+	    
+	 /*
+	    Book findByName(String book);
+	  
+	   	void updateBook(Book book);
 	     
 	    void deleteAllBooks();
 	     
-	    boolean isBookExist(Book book);
-	     
+	    
+	     */
 	}

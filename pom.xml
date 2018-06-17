@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>pl.coderslab</groupId>
-	<artifactId>RESTBookshopBackend_CodersLabWorkshop5</artifactId>
+	<artifactId>RESTBookshop-Backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
-	<name>REST Bookshop Backend</name>
-	<description>backend for Workshop5</description>
+	<name>RESTBookshop-Backend</name>
+	<description>RESTBookshopBackend_CodersLabWorkshop5</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -67,18 +67,19 @@
 		
 		<!-- db -->
 		
-		<!-- <dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-		</dependency>	-->
+		</dependency>	
 
+		<!--
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-		<!--	<scope>test</scope> -->
+			<scope>test</scope> 
 		</dependency>
-		
+		-->
 		<!-- end db -->
 			
 		<dependency>
