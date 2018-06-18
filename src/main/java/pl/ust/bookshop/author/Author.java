@@ -45,11 +45,11 @@ public class Author extends BaseEntity {
 	
 	@NaturalId(mutable = true)
 	private String email;
-
+/*
 	
 	@ManyToMany(mappedBy = "authors")
 	private List<Book> books = new ArrayList<>();
-	
+	*/
 	
 	
 

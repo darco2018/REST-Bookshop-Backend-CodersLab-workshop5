@@ -3,7 +3,6 @@ package pl.ust.bookshop.book;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,27 +19,25 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/books")
 public class BookController {
 	
-	@Autowired
 	private BookService bookService;   
 	
-	
-	//-------------------Retrieve All --------------------------------------------------------
+	public BookController(BookService bookService) {
+		this.bookService = bookService;
+	}
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<Book>> listAllBooks2() {
+    public ResponseEntity<List<Book>> listBooks() {
         List<Book> books = bookService.findAllBooks();
         if(books.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);//or HttpStatus.NOT_FOUND
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         
-        return new ResponseEntity<>(books, HttpStatus.OK); //instead of: return  bookService.findAllBooks();
+        return new ResponseEntity<>(books, HttpStatus.OK); 
     }
 
-	
-	// -------------------Retrieve one------------------------------------------
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE) // , 
-	public ResponseEntity<Book> getBook(@PathVariable("id") long id) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE) 
+	public ResponseEntity<Book> viewBook(@PathVariable("id") long id) {
 		Book book = bookService.findById(id);
 		if (book == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
@@ -50,10 +47,7 @@ public class BookController {
 	}
 	
 
-	// -------------------Create one-------------------------------------------
-
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	// type dla REsponseEntity void!
 	public ResponseEntity<Void> createBook(@RequestBody Book book, UriComponentsBuilder ucBuilder) {
 								
 		if (bookService.isBookExist(book)) {
@@ -67,7 +61,6 @@ public class BookController {
 		return new ResponseEntity<>(headers, HttpStatus.CREATED); 
 	}                                                                
 	
-	// -------------------Delete one-------------------------------------------
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Book> deleteBook(@PathVariable("id") long id) {

@@ -15,16 +15,16 @@ import pl.ust.bookshop.author.Author;
 import pl.ust.bookshop.book.Book;
 import pl.ust.bookshop.model.BaseEntity;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+//@Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @ToString(callSuper=true, includeFieldNames = false) @EqualsAndHashCode(callSuper=true)
 @Where(clause = "is_deleted=false")
 @Entity(name="authors_books")
 public class AuthorBook extends BaseEntity {
 	
-	@ManyToOne
+	/*@ManyToOne
 	private Author author;
 	
 	@ManyToOne
-	private Book book;
+	private Book book;*/
 
 }
