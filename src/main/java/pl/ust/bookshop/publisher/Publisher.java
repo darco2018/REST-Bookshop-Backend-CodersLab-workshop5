@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.Where;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,10 +35,12 @@ public class Publisher extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@NotEmpty 
-	@Column
 	private String name;
+	
+	@JsonIgnore // prevents recursion when calling books
 	@OneToMany(mappedBy = "publisher", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
-	@Singular private List<Book> books;
+	@Singular 
+	private List<Book> books;
 
 	/////////////// getters and setters ///////////////////
 
@@ -60,7 +63,7 @@ public class Publisher extends BaseEntity {
 		this.books.remove(book);
 	}
 
-	public void removeAllLessons() {
+	public void removeAllBooks() {
 
 		for (Book book : this.getBooks()) {
 			book.setPublisher(null);
