@@ -75,7 +75,7 @@ public class Book extends BaseEntity {
 	@Basic(fetch = FetchType.LAZY)
 	@LazyGroup("lobs")
 	private Blob coverImage;
-  /*
+  
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "books_authors", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
 	private Set<Author> authors;
@@ -91,7 +91,7 @@ public class Book extends BaseEntity {
 	}
   
   
-  */
+  
   
   
   

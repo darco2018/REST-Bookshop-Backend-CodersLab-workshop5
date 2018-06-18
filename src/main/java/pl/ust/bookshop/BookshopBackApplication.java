@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import pl.ust.bookshop.author.Author;
+import pl.ust.bookshop.author.AuthorService;
 import pl.ust.bookshop.book.Book;
 import pl.ust.bookshop.book.BookService;
 import pl.ust.bookshop.publisher.Publisher;
@@ -28,19 +30,21 @@ public class BookshopBackApplication {
 	}
 	
 	@Bean //taki sam jak CommandLineRunner, ale może rózne argumenty przymowac,nie tylko String[] args
-	ApplicationRunner method1 (PublisherService publisherService, BookService bookService) { // ApplicationArguments args
+	ApplicationRunner method1 (PublisherService publisherService, BookService bookService, AuthorService authorService) { // ApplicationArguments args
 		log.info("----------ApplicationRunner: Runs early, after creation of databases, righ before @ControllerAdvice "
 				+ "and mapping discovery, tomcat startup-----------------");
 		
-		prepopulateDatabase(publisherService, bookService);
+		populateDatabase(publisherService, bookService, authorService);
 		
 		return null ; 
 		
 	}
 	
-	private void prepopulateDatabase(PublisherService publisherService, BookService bookService) {
+	private void populateDatabase(PublisherService publisherService, BookService bookService, AuthorService authorService) {
 		
 		log.info("---------------Populating the database-----------------------");
+		
+		// publishers
 		
 		String[] publisherNames = {"Printing House", "Agora", "Books Ltd.", "Zara Books"};
 		Arrays.asList(publisherNames).stream().forEach( publisherName -> {
@@ -48,6 +52,8 @@ public class BookshopBackApplication {
 						Publisher publisher = Publisher.builder().name((String)publisherName).build();
 						publisherService.savePublisher(publisher);
 		});
+		
+		//books
 		
 		String[] bookTitles = {"Angel Eyes", "Brown Beasts", "Creator of Love", "Dungeons and Diggers", 
 				"Early morning", "Faces of Doom", "Green Apples", "Horror Stories", 
@@ -66,6 +72,22 @@ public class BookshopBackApplication {
 					.publisher(publisherService.findById(publisherIds[x])).build();
 			bookService.saveBook(book);
 		}
+		
+		//authors 
+		String[] authorFirstNames = {"John", "Mike", "Tom", "Lucas", "Julia", "Mary"};
+		String[] authorLastNames = {"Brown", "Smith", "Aldridge", "Camel", "Donne", "Smiles",};
+		String[] auhtorEmails = {"brown@gmail.com", "smith@gmail.com", "aldridge@gmail.com", "camel@gmail.com", "donne@gmail.com", "smiles@gmail.com"};
+		long[] auhtorIds = {1};
+		
+		for (int x = 0; x < authorFirstNames.length; x++) {
+			Author author = Author.builder().firstName(authorFirstNames[x]).lastName(authorLastNames[x]).email(auhtorEmails[x]).build();
+					//.publisher(publisherService.findById(publisherIds[x])).build();
+			authorService.saveAuthor(author);
+		}
+		
+		log.info("---------------END Populating the database-----------------------");
+		
+		
 	}		
 	
 	

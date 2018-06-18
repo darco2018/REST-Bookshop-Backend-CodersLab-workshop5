@@ -14,6 +14,7 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Where;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ import lombok.ToString;
 import pl.ust.bookshop.book.Book;
 import pl.ust.bookshop.model.BaseEntity;
 
-@Getter @Setter @AllArgsConstructor  @NoArgsConstructor
+@Getter @Setter @Builder @AllArgsConstructor  @NoArgsConstructor
 @ToString(callSuper=true, includeFieldNames = false, exclude = "books")
 @EqualsAndHashCode(callSuper=true)
 @Where(clause = "is_deleted=false")
@@ -45,11 +46,11 @@ public class Author extends BaseEntity {
 	
 	@NaturalId(mutable = true)
 	private String email;
-/*
+
 	
 	@ManyToMany(mappedBy = "authors")
 	private List<Book> books = new ArrayList<>();
-	*/
+	
 	
 	
 
