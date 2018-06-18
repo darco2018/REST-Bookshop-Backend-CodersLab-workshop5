@@ -22,11 +22,10 @@ import lombok.ToString;
 import pl.ust.bookshop.book.Book;
 import pl.ust.bookshop.model.BaseEntity;
 
-@Getter @Setter
-@AllArgsConstructor  @NoArgsConstructor
-@Where(clause = "is_deleted=false")
+@Getter @Setter @AllArgsConstructor  @NoArgsConstructor
 @ToString(callSuper=true, includeFieldNames = false, exclude = "books")
 @EqualsAndHashCode(callSuper=true)
+@Where(clause = "is_deleted=false")
 @Entity(name="authors")
 @Table( indexes =  @Index( name = "idx_author_first_last_name",
 	        columnList = "first_name, last_name", unique = false
@@ -47,11 +46,11 @@ public class Author extends BaseEntity {
 	@NaturalId(mutable = true)
 	private String email;
 
-	/*
+	
 	@ManyToMany(mappedBy = "authors")
 	private List<Book> books = new ArrayList<>();
 	
-	*/
+	
 	
 
 }
