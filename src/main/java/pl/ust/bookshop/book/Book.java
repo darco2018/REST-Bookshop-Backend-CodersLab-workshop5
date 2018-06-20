@@ -2,7 +2,8 @@
 package pl.ust.bookshop.book;
 
 import java.sql.Blob;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -13,11 +14,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Check;
@@ -33,8 +32,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Singular;
 import lombok.ToString;
 import pl.ust.bookshop.author.Author;
+import pl.ust.bookshop.authorbook.AuthorBook;
 import pl.ust.bookshop.model.BaseEntity;
 import pl.ust.bookshop.publisher.Publisher;
 
@@ -76,26 +77,33 @@ public class Book extends BaseEntity {
 	@LazyGroup("lobs")
 	private Blob coverImage;
   
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "books_authors", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
-	private Set<Author> authors;
-
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Singular 
+	private List<AuthorBook> authors = new ArrayList<>();
+	
 	public void addAuthor(Author author) {
-		this.authors.add(author);
-		author.getBooks().add(this);
+		AuthorBook authorBook = new AuthorBook(author, this);
+		this.getAuthors().add(authorBook);
+		author.getBooks().add(authorBook);
+
 	}
 
-	public void removeAuthor(Author author) {
-		this.authors.remove(author);
-		author.getBooks().remove(this);
-	}
-  
-  
-  
-  
-  
-  
-  
- 
+    public void removeAuthor(Author author) {
+        AuthorBook authorBook = new AuthorBook(author, this);
+        author.getBooks().remove( authorBook );
+        this.getAuthors().remove( authorBook );
+        authorBook.setBook( null );
+        authorBook.setAuthor( null );
+    }
+
+	/////////////// getters and setters ///////////////////
+/*
+	public List<AuthorBook> getAuthors() {
+		if (this.authors == null) {
+			this.authors = new ArrayList<>();
+		}
+		return this.authors;
+	}*/
+
   
 }
