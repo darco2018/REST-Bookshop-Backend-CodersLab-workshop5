@@ -10,6 +10,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import pl.ust.bookshop.publisher.Publisher;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class BookRepositoryTest {
@@ -18,7 +20,7 @@ public class BookRepositoryTest {
 	private BookRepository bookRepository;
 
 	@Autowired
-	private TestEntityManager entityManager;
+	private TestEntityManager tem;
 
 	private Book book;
 
@@ -35,7 +37,7 @@ public class BookRepositoryTest {
 	public void shouldFindBookById() {
 
 		// given
-		Long id = (Long) entityManager.persistAndGetId(this.book);
+		Long id = (Long) tem.persistAndGetId(this.book);
 
 		// when
 		Book found = bookRepository.findById(id).get();
@@ -49,13 +51,33 @@ public class BookRepositoryTest {
 	@Test
 	public void shouldFindBookByTitle() {
 		// given
-		entityManager.persistAndFlush(this.book);
+		tem.persistAndFlush(this.book);
 		
 		// when
 		Book found = bookRepository.findByTitle(this.book.getTitle()).get();
 		
 		// then
 		org.assertj.core.api.Assertions.assertThat(this.book.getTitle()).isEqualTo(found.getTitle());
+	}
+	
+	@Test
+	public void shouldCascadePersistToBook() {
+		
+		//given
+		Publisher publisher = Publisher.builder().name("BookHouse").build();
+		
+		//when
+		publisher.addBook(this.book);
+		Long publisherId = tem.persistAndGetId(publisher, Long.class);
+		tem.flush();
+		
+		//then
+		Publisher found = tem.find(Publisher.class, publisherId);
+		org.assertj.core.api.Assertions.assertThat(found.getBooks()).isNotEmpty();
+		
+		assertThat(found.getBooks().stream().findFirst().get().getTitle()).isEqualTo(this.book.getTitle());
+		assertThat(found.getBooks().stream().findFirst().get().getId()).isEqualTo(publisherId);
+		
 	}
 
 }

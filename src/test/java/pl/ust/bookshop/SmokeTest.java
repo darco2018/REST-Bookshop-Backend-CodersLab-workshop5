@@ -30,7 +30,7 @@ public class SmokeTest {
 	}
 
 	@Test
-	public void greetingShouldReturnDefaultMessage() throws Exception {
+	public void shouldReturnTestMessage() throws Exception {
 		assertThat(this.restTemplate
 				.getForObject("http://localhost:" + port + "/test", String.class))
 				.contains("test passed");

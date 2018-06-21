@@ -1,7 +1,7 @@
 package pl.ust.bookshop.publisher;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -39,14 +39,14 @@ public class Publisher extends BaseEntity {
 	
 	@JsonIgnore // prevents recursion when calling books
 	@OneToMany(mappedBy = "publisher", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
-	@Singular 
-	private List<Book> books;
+	
+	private Set<Book> books; // = new ArrayList<>();
 
 	/////////////// getters and setters ///////////////////
 
-	public List<Book> getBooks() {
+	public Set<Book> getBooks() {
 		if (this.books == null) {
-			this.books = new ArrayList<>();
+			this.books = new HashSet<>();
 		}
 		return this.books;
 	}
@@ -54,13 +54,13 @@ public class Publisher extends BaseEntity {
 	/////////////// helpers ///////////////////
 
 	public void addBook(Book book) {
-		this.books.add(book);
+		this.getBooks().add(book);
 		book.setPublisher(this);
 	}
 
 	public void removeBook(Book book) {
 		book.setPublisher(null);
-		this.books.remove(book);
+		this.getBooks().remove(book);
 	}
 
 	public void removeAllBooks() {
