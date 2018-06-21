@@ -1,6 +1,7 @@
 package pl.ust.bookshop.publisher;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,8 +28,8 @@ public class PublisherController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<List<Publisher>> listPublishers() {
-		List<Publisher> publishers = this.publisherService.findAllPublishers();
+	public ResponseEntity<Set<Publisher>> listPublishers() {
+		Set<Publisher> publishers = this.publisherService.findAllPublishers();
 		if (publishers.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -38,7 +39,7 @@ public class PublisherController {
 
 	@GetMapping("{id}")
 	public ResponseEntity<Publisher> viewPublisher(@PathVariable long id) {
-		Publisher publisher = this.publisherService.findById(id);
+		Publisher publisher = this.publisherService.findPublisherById(id);
 
 		if (publisher == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -64,7 +65,7 @@ public class PublisherController {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Book> deletePublisher(@PathVariable("id") long id) {
 
-		Publisher publisher = this.publisherService.findById(id);
+		Publisher publisher = this.publisherService.findPublisherById(id);
 		if (publisher == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

@@ -1,7 +1,7 @@
 package pl.ust.bookshop.publisher;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,13 +26,13 @@ public class PublisherServiceImpl implements PublisherService{
 	}
 
 	@Override
-	public Publisher findById(long id) {
+	public Publisher findPublisherById(long id) {
 		Optional<Publisher> opt = this.publisherRepo.findById(id);
 		return opt.orElseThrow(IllegalArgumentException::new);
 	}
 
 	@Override
-	public List<Publisher> findAllPublishers() {
+	public Set<Publisher> findAllPublishers() {
 		return this.publisherRepo.findAll();
 	}
 	

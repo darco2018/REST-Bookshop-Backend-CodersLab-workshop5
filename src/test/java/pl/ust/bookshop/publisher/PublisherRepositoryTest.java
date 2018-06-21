@@ -37,7 +37,6 @@ public class PublisherRepositoryTest {
 		Publisher found = tem.find(Publisher.class, id);
 		
 		//then
-		
 		org.assertj.core.api.Assertions.assertThat(found.getId()).isNotNull();
 		Assertions.assertThat(found.getId()).isGreaterThan(0);
 		Assertions.assertThat(found.getName()).isEqualTo(this.publisher.getName());

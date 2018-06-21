@@ -1,13 +1,13 @@
 package pl.ust.bookshop.publisher;
 
-import java.util.List;
+import java.util.Set;
 
 public interface PublisherService {
 	
     void savePublisher(Publisher publisher);
     void deletePublisherById(long publisherId);
-    Publisher findById(long id);
-    List<Publisher> findAllPublishers();
+    Publisher findPublisherById(long id);
+    Set<Publisher> findAllPublishers();
 	boolean isPublisherExist(Publisher publisher); 
     
     /*
