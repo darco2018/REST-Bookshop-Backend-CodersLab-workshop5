@@ -32,7 +32,8 @@ public class BookRepositoryTest {
 				.isbn("99921-58-10-7")
 				.build();
 	}
-
+	// TODO remove fully qualified names 
+	
 	@Test 
 	public void shouldFindBookById() {
 

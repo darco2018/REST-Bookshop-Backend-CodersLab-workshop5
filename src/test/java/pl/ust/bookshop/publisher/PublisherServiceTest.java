@@ -2,7 +2,6 @@ package pl.ust.bookshop.publisher;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 
 import java.util.Optional;

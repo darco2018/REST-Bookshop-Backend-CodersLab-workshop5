@@ -1,13 +1,9 @@
 package pl.ust.bookshop;
 
-import java.util.Arrays;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +11,6 @@ import pl.ust.bookshop.author.Author;
 import pl.ust.bookshop.author.AuthorService;
 import pl.ust.bookshop.book.Book;
 import pl.ust.bookshop.book.BookService;
-import pl.ust.bookshop.publisher.Publisher;
 import pl.ust.bookshop.publisher.PublisherService;
 
 

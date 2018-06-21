@@ -2,8 +2,8 @@
 package pl.ust.bookshop.book;
 
 import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -72,6 +72,7 @@ public class Book extends BaseEntity {
   	//@ColumnDefault("unassigned") //- not working when prepopulating: MySQLSyntaxErrorException: Table 'a_bookshop.books' doesn't exist
   	private  String type;
   
+  	
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	@LazyGroup("lobs")
@@ -79,7 +80,7 @@ public class Book extends BaseEntity {
   
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Singular 
-	private List<AuthorBook> authors = new ArrayList<>();
+	private Set<AuthorBook> authors;
 	
 	public void addAuthor(Author author) {
 		AuthorBook authorBook = new AuthorBook(author, this);
@@ -97,13 +98,13 @@ public class Book extends BaseEntity {
     }
 
 	/////////////// getters and setters ///////////////////
-/*
-	public List<AuthorBook> getAuthors() {
+
+	public Set<AuthorBook> getAuthors() {
 		if (this.authors == null) {
-			this.authors = new ArrayList<>();
+			this.authors = new HashSet<>();
 		}
 		return this.authors;
-	}*/
+	}
 
   
 }

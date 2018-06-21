@@ -1,6 +1,5 @@
 package pl.ust.bookshop.publisher;
 
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.http.HttpHeaders;

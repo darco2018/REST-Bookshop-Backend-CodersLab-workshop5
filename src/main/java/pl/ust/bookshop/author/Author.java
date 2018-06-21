@@ -52,16 +52,16 @@ public class Author extends BaseEntity {
 	
 	@JsonIgnore // prevents recursion when calling books
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<AuthorBook> books = new ArrayList<>();
+	private List<AuthorBook> books;
 
 	/////////////// getters and setters ///////////////////
-/*
+
 	public List<AuthorBook> getBooks() {
 		if (this.books == null) {
 			this.books = new ArrayList<>();
 		}
 		return this.books;
-	}*/
+	}
 	
 	
 
