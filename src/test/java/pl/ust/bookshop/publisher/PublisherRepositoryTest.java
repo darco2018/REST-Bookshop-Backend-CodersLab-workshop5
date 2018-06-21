@@ -52,7 +52,7 @@ public class PublisherRepositoryTest {
 		tem.persistAndFlush(this.publisher);
 		
 		//when
-		Publisher found = publisherRepository.findByName(this.publisher.getName());
+		Publisher found = publisherRepository.findByName(this.publisher.getName()).get();
 		
 		//then
 		org.assertj.core.api.Assertions.assertThat(found.getName()).isEqualTo(this.publisher.getName());
