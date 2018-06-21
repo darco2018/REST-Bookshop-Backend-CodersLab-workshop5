@@ -1,7 +1,5 @@
 package pl.ust.bookshop.publisher;
 
-import static org.junit.Assert.fail;
-
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +25,7 @@ public class PublisherRepositoryTest {
 	public void setUp() {
 		this.publisher = Publisher.builder().name("GoodBooks co.").build();
 	}
+	// TODO remove fully qualified names 
 	
 	@Test
 	public void shouldFindPublisherById() {

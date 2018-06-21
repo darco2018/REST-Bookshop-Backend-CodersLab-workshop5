@@ -1,13 +1,14 @@
 package pl.ust.bookshop.book;
 
 import java.util.List;
+import java.util.Set;
 
 public interface BookService {
 	     
 	    void saveBook(Book book);
 	    void deleteBookById(long id);
-	    Book findById(long id);
-	    List<Book> findAllBooks(); 
+	    Book findBookById(long id);
+	    Set<Book> findAllBooks(); 
 	    boolean isBookExist(Book book);
 	    
 	 /*

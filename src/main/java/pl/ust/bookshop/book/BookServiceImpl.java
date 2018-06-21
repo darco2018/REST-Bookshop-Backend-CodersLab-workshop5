@@ -1,7 +1,7 @@
 package pl.ust.bookshop.book;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,12 +9,11 @@ import org.springframework.stereotype.Service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor(onConstructor=@__({@Autowired}))
 @Service
 public class BookServiceImpl implements BookService{
 	
 	private final @NonNull  BookRepository bookRepository;
-	
 	/*
 	  NOTE: use final and @NonNull.
 	  lombok replaces:
@@ -36,13 +35,13 @@ public class BookServiceImpl implements BookService{
 	}
 	
 	@Override
-	public Book findById(long id) {
+	public Book findBookById(long id) {
 		Optional<Book> opt = this.bookRepository.findById(id);
 		return opt.orElseThrow(IllegalArgumentException::new);
 	}
 	
 	@Override
-	public List<Book> findAllBooks() {
+	public Set<Book> findAllBooks() {
 		return this.bookRepository.findAll();
 	}
 
