@@ -51,7 +51,7 @@ public class Publisher extends BaseEntity {
 		return this.books;
 	}
 
-	/////////////// helpers for Lesson ///////////////////
+	/////////////// helpers ///////////////////
 
 	public void addBook(Book book) {
 		this.books.add(book);

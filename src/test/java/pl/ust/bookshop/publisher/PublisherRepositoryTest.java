@@ -57,7 +57,6 @@ public class PublisherRepositoryTest {
 		//then
 		org.assertj.core.api.Assertions.assertThat(found.getName()).isEqualTo(this.publisher.getName());
 		
-		
 	}
 	
 	
