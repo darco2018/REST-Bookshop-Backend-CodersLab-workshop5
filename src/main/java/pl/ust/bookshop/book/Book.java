@@ -10,9 +10,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -32,7 +29,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Singular;
 import lombok.ToString;
 import pl.ust.bookshop.author.Author;
 import pl.ust.bookshop.authorbook.AuthorBook;
@@ -40,9 +36,11 @@ import pl.ust.bookshop.model.BaseEntity;
 import pl.ust.bookshop.publisher.Publisher;
 
 @JsonIgnoreProperties(ignoreUnknown = true) 
-@Getter @Setter @Builder @AllArgsConstructor  @NoArgsConstructor
+@Getter @Setter @Builder 
+@AllArgsConstructor  @NoArgsConstructor
 @Where(clause = "is_deleted=false")
-@EqualsAndHashCode(of = {"isbn"}, callSuper = true) @ToString(callSuper=true, includeFieldNames = false)
+@EqualsAndHashCode(of = {"isbn"}, callSuper = false) 
+@ToString(callSuper=true, includeFieldNames = false)
 @Entity(name="books")
 
 @Table( indexes = @Index(name = "idx_book_title", 
@@ -53,10 +51,6 @@ import pl.ust.bookshop.publisher.Publisher;
 public class Book extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
 
 	// @JsonIgnore
 	@ManyToOne
@@ -79,7 +73,6 @@ public class Book extends BaseEntity {
 	private Blob coverImage;
   
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-	@Singular 
 	private Set<AuthorBook> authors;
 	
 	public void addAuthor(Author author) {

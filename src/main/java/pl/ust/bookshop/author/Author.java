@@ -26,7 +26,8 @@ import lombok.ToString;
 import pl.ust.bookshop.authorbook.AuthorBook;
 import pl.ust.bookshop.model.BaseEntity;
 
-@Getter @Setter @Builder @AllArgsConstructor  @NoArgsConstructor
+@Getter @Setter @Builder 
+@AllArgsConstructor  @NoArgsConstructor
 @ToString(callSuper=true, includeFieldNames = false, exclude = "books")
 @EqualsAndHashCode(callSuper=true)
 @Where(clause = "is_deleted=false")

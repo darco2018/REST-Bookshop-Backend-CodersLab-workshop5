@@ -1,9 +1,10 @@
 package pl.ust.bookshop.authorbook;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
-import org.hibernate.annotations.Where;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -13,20 +14,26 @@ import lombok.Setter;
 import lombok.ToString;
 import pl.ust.bookshop.author.Author;
 import pl.ust.bookshop.book.Book;
-import pl.ust.bookshop.model.BaseEntity;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
-@ToString(callSuper=true, includeFieldNames = false) @EqualsAndHashCode(callSuper=true)
-@Where(clause = "is_deleted=false")
+@ToString(callSuper=true, includeFieldNames = false) 
+@EqualsAndHashCode
 @Entity(name="authors_books")
-public class AuthorBook extends BaseEntity {
+public class AuthorBook implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-
+	
+	@Id
 	@ManyToOne
 	private Author author;
 	
+	@Id
 	@ManyToOne
 	private Book book;
+	
 
 }
+
+
+
+

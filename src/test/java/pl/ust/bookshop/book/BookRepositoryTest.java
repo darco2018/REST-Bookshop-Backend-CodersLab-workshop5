@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import pl.ust.bookshop.author.Author;
 import pl.ust.bookshop.publisher.Publisher;
 
 @RunWith(SpringRunner.class)
@@ -59,6 +60,7 @@ public class BookRepositoryTest {
 		
 		// then
 		org.assertj.core.api.Assertions.assertThat(this.book.getTitle()).isEqualTo(found.getTitle());
+	
 	}
 	
 	@Test
@@ -66,19 +68,50 @@ public class BookRepositoryTest {
 		
 		//given
 		Publisher publisher = Publisher.builder().name("BookHouse").build();
+		Long publisherId = tem.persistAndGetId(publisher, Long.class);
 		
 		//when
 		publisher.addBook(this.book);
-		Long publisherId = tem.persistAndGetId(publisher, Long.class);
 		tem.flush();
 		
 		//then
-		Publisher found = tem.find(Publisher.class, publisherId);
-		org.assertj.core.api.Assertions.assertThat(found.getBooks()).isNotEmpty();
+		Publisher foundPublisher = tem.find(Publisher.class, publisherId);
+		assertThat(foundPublisher.getBooks()).isNotEmpty();
 		
-		assertThat(found.getBooks().stream().findFirst().get().getTitle()).isEqualTo(this.book.getTitle());
-		assertThat(found.getBooks().stream().findFirst().get().getId()).isEqualTo(publisherId);
+		Book foundBook = foundPublisher.getBooks().stream().findFirst().get();
+		assertThat(foundBook.getTitle()).isEqualTo(this.book.getTitle());
 		
+		assertThat(foundBook.getPublisher().getId()).isEqualTo(publisherId);
 	}
-
+	
+	@Test
+	public void shouldCascadePersistToAuthor() throws InterruptedException {
+		
+		//given
+		Long bookId = tem.persistAndGetId(this.book, Long.class);
+		
+		Author author = Author.builder().firstName("Lewis").lastName("Carol").build();
+		tem.persist(author);
+		
+		//when
+		this.book.addAuthor(author);
+		/*
+			tem.flush();  UNNECESSARY FLUSH throws exception StackOverflow
+		
+			Loading entity: [pl.ust.bookshop.book.Book#1]
+		  	<< Author added
+			Attempting to resolve: [pl.ust.bookshop.book.Book#1]
+			<<<< Book found
+			Resolved object in session cache: [pl.ust.bookshop.book.Book#1]
+		*/
+		
+		
+		//then
+		Book foundBook = tem.find(Book.class, bookId);
+		org.assertj.core.api.Assertions.assertThat(foundBook.getTitle()).isEqualTo(this.book.getTitle());
+		
+		Author foundAuthor = foundBook.getAuthors().stream().findFirst().get().getAuthor();
+		org.assertj.core.api.Assertions.assertThat(foundAuthor.getLastName()).isEqualTo(author.getLastName());
+	}
+	
 }

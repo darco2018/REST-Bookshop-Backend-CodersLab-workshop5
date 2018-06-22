@@ -22,8 +22,9 @@ public class BaseEntity implements Serializable {
    
 	private static final long serialVersionUID = 1L;
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
 	
 	@NotNull
 	@Column(updatable=false, nullable=false)

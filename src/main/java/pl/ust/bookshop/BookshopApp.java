@@ -23,16 +23,16 @@ public class BookshopApp {
 	public static void main(String[] args) {
 		SpringApplication.run(BookshopApp.class, args);
 	}
-	
+	/*
 	@Bean 
 	ApplicationRunner populate (PublisherService publisherService, BookService bookService, AuthorService authorService) { // ApplicationArguments args
 		log.info("-----@@@-----AppRunner: Runs early, after creation of databases-----------------");
 		
-		DBPopulator.populatePublishers(publisherService);
-		DBPopulator.populateAuthors(authorService);
+		//DBPopulator.populatePublishers(publisherService);
+		//DBPopulator.populateAuthors(authorService);
 		//DBPopulator.populateBooks(bookService, publisherService, authorService);
 		return null ; 
-	}
+	}*/
 	
 	// TODO remove if not needed
 	@Component

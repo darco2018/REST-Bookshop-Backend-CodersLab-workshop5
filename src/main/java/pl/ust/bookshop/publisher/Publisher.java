@@ -27,7 +27,7 @@ import pl.ust.bookshop.model.BaseEntity;
 @AllArgsConstructor  @NoArgsConstructor
 @Where(clause = "is_deleted=false")
 @ToString(callSuper=true, includeFieldNames = false, exclude = "books")
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(of = {"name"}, callSuper = false) 
 @Entity(name="publishers")
 public class Publisher extends BaseEntity {
 	
@@ -39,7 +39,7 @@ public class Publisher extends BaseEntity {
 	@JsonIgnore // prevents recursion when calling books
 	@OneToMany(mappedBy = "publisher", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
 	
-	private Set<Book> books; // = new ArrayList<>();
+	private Set<Book> books; 
 
 	/////////////// getters and setters ///////////////////
 

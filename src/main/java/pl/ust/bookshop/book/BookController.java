@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
-import org.assertj.core.util.Preconditions;
+//import org.assertj.core.util.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -61,7 +61,7 @@ public class BookController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ResponseEntity<Void> createBook(@RequestBody Book book, UriComponentsBuilder ucBuilder) {
 		
-		Preconditions.checkNotNull(book);
+		//Preconditions.checkNotNull(book);
 		
 		if (bookService.isBookExist(book)) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT); 
