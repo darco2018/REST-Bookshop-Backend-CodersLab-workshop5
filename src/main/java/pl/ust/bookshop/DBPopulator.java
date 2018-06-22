@@ -62,10 +62,14 @@ public class DBPopulator {
 
 		for (int x = 0; x < bookTitles.length; x++) {
 
-			Book book = Book.builder().title(bookTitles[x]).isbn(isbns[x])
+			Book book = Book.builder()
+					.title(bookTitles[x])
+					.isbn(isbns[x])
 					.publisher(publisherService.findPublisherById(publisherIds[x])).build();
 
-			Author author = new Author().builder().firstName("xxx").lastName("yyy").email("xxx@wp.pl").build();
+			Author author = new Author().builder().firstName("xxx")
+													.lastName("yyy")
+													.email("xxx@wp.pl").build();
 			authorService.saveAuthor(author);
 			book.addAuthor(author);
 			bookService.saveBook(book);

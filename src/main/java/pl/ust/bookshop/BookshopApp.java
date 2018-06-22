@@ -30,7 +30,7 @@ public class BookshopApp {
 		
 		DBPopulator.populatePublishers(publisherService);
 		DBPopulator.populateAuthors(authorService);
-		DBPopulator.populateBooks(bookService, publisherService, authorService);
+		//DBPopulator.populateBooks(bookService, publisherService, authorService);
 		return null ; 
 	}
 	
