@@ -2,8 +2,14 @@ package pl.ust.bookshop;
 
 import java.util.Arrays;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import pl.ust.bookshop.author.Author;
 import pl.ust.bookshop.author.AuthorService;
@@ -15,6 +21,9 @@ import pl.ust.bookshop.publisher.PublisherService;
 public class DBPopulator {
 	
 	private DBPopulator() {}
+	
+	@PersistenceContext
+	private static EntityManager em;
 
 	private static final Logger log = LoggerFactory.getLogger(BookshopApp.class);
 
@@ -66,14 +75,22 @@ public class DBPopulator {
 					.title(bookTitles[x])
 					.isbn(isbns[x])
 					.publisher(publisherService.findPublisherById(publisherIds[x])).build();
-			System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<SQVING BOOK" );
-			bookService.saveBook(book);
-			/*
 			Author author = authorService.findById(auhtorIds[x]);
-			book.getAuthors().size();
-			System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<" + book.getAuthors().size());
-			System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<" + book.getPublisher(););
-			
+			//em.createQuery("");
+
+			PersistenceUtil util = Persistence.getPersistenceUtil();
+			/*em = Persistence.createEntityManagerFactory("authors").createEntityManager();*/
+
+			  boolean isObjectLoaded = util.isLoaded(author);
+			  boolean isFieldLoaded = util.isLoaded(author, "books");
+			  
+			  System.err.println("<<<<<<<<<<<<YYY<<<<<<<<<<<<<< Author is loaded " + isObjectLoaded);
+			  System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<<< Books is loaded " + isFieldLoaded);
+			 // author.getBooks().size();
+			  System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<<< Books is loaded " + isFieldLoaded);
+			  
+			  
+			/*  
 			book.addAuthor(author);
 			bookService.saveBook(book);*/
 		}
@@ -81,3 +98,4 @@ public class DBPopulator {
 	}
 	
 }
+

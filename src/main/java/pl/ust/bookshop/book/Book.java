@@ -72,7 +72,7 @@ public class Book extends BaseEntity {
 	@LazyGroup("lobs")
 	private Blob coverImage;
   
-	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private Set<AuthorBook> authors;
 	
 	public void addAuthor(Author author) {
