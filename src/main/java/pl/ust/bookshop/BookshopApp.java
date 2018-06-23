@@ -23,18 +23,24 @@ public class BookshopApp {
 	public static void main(String[] args) {
 		SpringApplication.run(BookshopApp.class, args);
 	}
-	/*
+	
+	
 	@Bean 
 	ApplicationRunner populate (PublisherService publisherService, BookService bookService, AuthorService authorService) { // ApplicationArguments args
 		log.info("-----@@@-----AppRunner: Runs early, after creation of databases-----------------");
 		
-		//DBPopulator.populatePublishers(publisherService);
-		//DBPopulator.populateAuthors(authorService);
-		//DBPopulator.populateBooks(bookService, publisherService, authorService);
-		return null ; 
-	}*/
+		return args ->{
+			
+			DBPopulator.populatePublishers(publisherService);
+			DBPopulator.populateAuthors(authorService);
+			DBPopulator.populateBooks(bookService, publisherService, authorService);
+
+		} ; 
+	}
+	
 	
 	// TODO remove if not needed
+	
 	@Component
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	class MyCLRunner1 implements CommandLineRunner {

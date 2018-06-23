@@ -13,11 +13,13 @@ import pl.ust.bookshop.publisher.Publisher;
 import pl.ust.bookshop.publisher.PublisherService;
 
 public class DBPopulator {
+	
+	private DBPopulator() {}
 
 	private static final Logger log = LoggerFactory.getLogger(BookshopApp.class);
 
 	static void populatePublishers(PublisherService publisherService) {
-		log.info("---------------Populating the publishers-----------------------");
+		log.info("{}", "---------------Populating the publishers-----------------------");
 
 		String[] publisherNames = { "Printing House", "Agora", "Books Ltd.", "Zara Books" };
 		Arrays.asList(publisherNames).stream().forEach(publisherName -> {
@@ -25,11 +27,11 @@ public class DBPopulator {
 			publisherService.savePublisher(publisher);
 		});
 
-		log.info("---------------END Populating the publishers-----------------------");
+		log.info("{}","---------------END Populating the publishers-----------------------");
 	}
 
 	static void populateAuthors(AuthorService authorService) {
-		log.info("---------------Populating the authors-----------------------");
+		log.info("{}","---------------Populating the authors-----------------------");
 
 		String[] authorFirstNames = { "John", "Mike", "Tom", "Lucas", "Julia", "Mary" };
 		String[] authorLastNames = { "Brown", "Smith", "Aldridge", "Camel", "Donne", "Smiles", };
@@ -54,11 +56,9 @@ public class DBPopulator {
 				"0-684-84328-4", "99921-58-10-1", "1-84356-028-2", "0-684-84328-1", "0-943396-04-3", "0-9752297-0-X",
 				"978-3-16-148410-0" };
 
-	
-
-		long[] auhtorIds = { 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4 };
 
 		long[] publisherIds = { 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4 };
+		long[] auhtorIds 	= { 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 8, 9 };
 
 		for (int x = 0; x < bookTitles.length; x++) {
 
@@ -66,23 +66,18 @@ public class DBPopulator {
 					.title(bookTitles[x])
 					.isbn(isbns[x])
 					.publisher(publisherService.findPublisherById(publisherIds[x])).build();
-
-			Author author = new Author().builder().firstName("xxx")
-													.lastName("yyy")
-													.email("xxx@wp.pl").build();
-			authorService.saveAuthor(author);
-			book.addAuthor(author);
+			System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<SQVING BOOK" );
 			bookService.saveBook(book);
+			/*
+			Author author = authorService.findById(auhtorIds[x]);
+			book.getAuthors().size();
+			System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<" + book.getAuthors().size());
+			System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<" + book.getPublisher(););
+			
+			book.addAuthor(author);
+			bookService.saveBook(book);*/
 		}
 
-		Book book = Book.builder().title("eee").isbn("99921-58-10-1").build();
-	
-		// .publisher(publisherService.findById(1)).build();
-		Author author = Author.builder().firstName("xxx").lastName("yyy").email("xxx@wp.pl").build();
-		authorService.saveAuthor(author);
-		bookService.saveBook(book);
-		book.addAuthor(author);
-	
 	}
-
+	
 }
