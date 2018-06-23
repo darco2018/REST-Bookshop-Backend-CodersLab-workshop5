@@ -11,6 +11,8 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import pl.ust.bookshop.aaa.Address;
+import pl.ust.bookshop.aaa.Person;
 import pl.ust.bookshop.author.AuthorService;
 import pl.ust.bookshop.book.BookService;
 import pl.ust.bookshop.publisher.PublisherService;
@@ -19,24 +21,48 @@ import pl.ust.bookshop.publisher.PublisherService;
 public class BookshopApp {
 	
 	private static final Logger log = LoggerFactory.getLogger(BookshopApp.class);
+	
+	private javax.persistence.EntityManager entityManager;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BookshopApp.class, args);
 	}
-	/*
+	
 	@Bean 
-	ApplicationRunner populate (PublisherService publisherService, BookService bookService, AuthorService authorService) { // ApplicationArguments args
-		log.info("-----@@@-----AppRunner: Runs early, after creation of databases-----------------");
+	@Order(Ordered.HIGHEST_PRECEDENCE)
+	ApplicationRunner populate () { // ApplicationArguments args
 		
-		//DBPopulator.populatePublishers(publisherService);
-		//DBPopulator.populateAuthors(authorService);
-		//DBPopulator.populateBooks(bookService, publisherService, authorService);
-		return null ; 
-	}*/
+		return args -> {
+			
+			Person person1 = new Person( "ABC-123" );
+			Person person2 = new Person( "DEF-456" );
+
+			Address address1 = new Address( "12th Avenue", "12A", "4005A" );
+			Address address2 = new Address( "18th Avenue", "18B", "4007B" );
+
+			entityManager.persist( person1 );
+			entityManager.persist( person2 );
+
+			entityManager.persist( address1 );
+			entityManager.persist( address2 );
+
+			person1.addAddress( address1 );
+			person1.addAddress( address2 );
+
+			person2.addAddress( address1 );
+
+			entityManager.flush();
+
+			log.info( "Removing address" );
+			person1.removeAddress( address1 );
+			
+			log.info("-----@@@-----AppRunner: Runs early, after creation of databases-----------------");
+		} ; 
+	}
 	
 	// TODO remove if not needed
 	@Component
-	@Order(Ordered.HIGHEST_PRECEDENCE)
+	@Order(1)
 	class MyCLRunner1 implements CommandLineRunner {
 
 		@Override
