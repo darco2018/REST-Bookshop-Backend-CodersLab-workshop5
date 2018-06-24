@@ -53,7 +53,7 @@ public class Book extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	// @JsonIgnore
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	private Publisher publisher;
   
 	@NaturalId
@@ -72,7 +72,7 @@ public class Book extends BaseEntity {
 	@LazyGroup("lobs")
 	private Blob coverImage;
   
-	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.LAZY)
 	private Set<AuthorBook> authors;
 	
 	public void addAuthor(Author author) {
