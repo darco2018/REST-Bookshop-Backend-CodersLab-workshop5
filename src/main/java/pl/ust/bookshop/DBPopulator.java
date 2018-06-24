@@ -1,6 +1,5 @@
 package pl.ust.bookshop;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,6 +49,7 @@ public class DBPopulator {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	static void populateBooks(EntityManager entityManager) {
 		LOG.info("---------------Populating the books-----------------------");
 
@@ -70,8 +70,7 @@ public class DBPopulator {
 			entityManager.persist(book);
 
 			Query q = entityManager.createNativeQuery("select * from authors", Author.class);
-			List<Author> authors = new ArrayList<>();
-			authors = q.getResultList();
+			List<Author> authors = q.getResultList();
 			Assert.notEmpty(authors, "The list should contain Authors!");
 
 			switch (x) {
@@ -98,6 +97,8 @@ public class DBPopulator {
 			case 10:
 				book.addAuthor(authors.get(5));
 				break;
+			default: 
+				book.addAuthor(authors.get(1));
 			}
 			
 			entityManager.flush();
