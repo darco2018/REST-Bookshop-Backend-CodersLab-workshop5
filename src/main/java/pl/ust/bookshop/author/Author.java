@@ -29,7 +29,7 @@ import pl.ust.bookshop.model.BaseEntity;
 @Getter @Setter @Builder 
 @AllArgsConstructor  @NoArgsConstructor
 @ToString(callSuper=true, includeFieldNames = false, exclude = "books")
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(of = {"firstName", "lastName", "email"}, callSuper = true) 
 @Where(clause = "is_deleted=false")
 @Entity(name="authors")
 @Table( indexes =  @Index( name = "idx_author_first_last_name",

@@ -17,7 +17,7 @@ import pl.ust.bookshop.book.Book;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @ToString(callSuper=true, includeFieldNames = false) 
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"author", "book"}) 
 @Entity(name="authors_books")
 public class AuthorBook implements Serializable {
 	
