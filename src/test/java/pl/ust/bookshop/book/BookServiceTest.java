@@ -48,7 +48,7 @@ public class BookServiceTest {
 		
 		//when
 		Set<Book> books = bookService.findAllBooks();
-		
+		http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=2568658
 		//then
 		org.assertj.core.api.Assertions.assertThat(books.size()).isEqualTo(2);
 
