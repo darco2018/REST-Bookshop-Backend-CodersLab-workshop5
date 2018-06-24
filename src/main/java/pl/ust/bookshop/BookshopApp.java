@@ -23,7 +23,8 @@ public class BookshopApp {
 	public static void main(String[] args) {
 		SpringApplication.run(BookshopApp.class, args);
 	}
-	/*
+	
+	/* UNCOMMENT ON THE FIRST RUN
 	@Component
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	 class DBPopulatorRunner implements ApplicationRunner {
@@ -38,7 +39,9 @@ public class BookshopApp {
 		
 	} 
 	*/
-		
+	
+	
+	/*	
 	@Component
 	class MyCLRunner1 implements CommandLineRunner {
 
@@ -47,7 +50,7 @@ public class BookshopApp {
 						
 			
 		}
-	}
+	}*/
 	
 }
 
