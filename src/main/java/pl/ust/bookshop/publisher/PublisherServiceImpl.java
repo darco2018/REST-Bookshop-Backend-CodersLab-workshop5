@@ -16,8 +16,8 @@ public class PublisherServiceImpl implements PublisherService{
 	private final @NonNull PublisherRepository publisherRepo;
 
 	@Override
-	public void savePublisher(Publisher publisher) {
-		this.publisherRepo.save(publisher);
+	public Publisher savePublisher(Publisher publisher) {
+		return this.publisherRepo.save(publisher);
 	}
 
 	@Override

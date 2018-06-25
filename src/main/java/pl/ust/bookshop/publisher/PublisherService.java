@@ -4,7 +4,7 @@ import java.util.Set;
 
 public interface PublisherService {
 	
-    void savePublisher(Publisher publisher);
+	Publisher savePublisher(Publisher publisher);
     void deletePublisherById(long publisherId);
     Publisher findPublisherById(long id);
     Set<Publisher> findAllPublishers();

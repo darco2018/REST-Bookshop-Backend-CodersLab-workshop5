@@ -5,19 +5,24 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 public class BookshopApp {
 	
-	@PersistenceContext
-	private EntityManager entityManager;
+	
 	
 	
 	public static void main(String[] args) {
-		SpringApplication.run(BookshopApp.class, args);
+		ApplicationContext ctx = SpringApplication.run(BookshopApp.class, args);
+		System.err.println(ctx); // AnnotationConfigServletWebServerApplicationContext
 	}
 	
-	/* UNCOMMENT ON THE FIRST RUN
+	/* UNCOMMENT ON THE FIRST RUN (PersistenceContext not loaded when @WebMvcTest is used in tests)
+	 
+	  @PersistenceContext
+		private EntityManager entityManager;
+	 
 	@Component
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	 class DBPopulatorRunner implements ApplicationRunner {
