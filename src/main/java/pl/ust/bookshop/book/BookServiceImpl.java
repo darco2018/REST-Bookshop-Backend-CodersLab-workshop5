@@ -3,6 +3,7 @@ package pl.ust.bookshop.book;
 import java.util.Optional;
 import java.util.Set;
 
+import org.assertj.core.util.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +15,11 @@ import lombok.RequiredArgsConstructor;
 public class BookServiceImpl implements BookService{
 	
 	private final @NonNull  BookRepository bookRepository;
-	/*
-	  NOTE: use final and @NonNull.
-	  lombok replaces:
-	  
-	  public BookServiceImpl(BookRepository publisherRepo) {
-	    Assert.notNull(collaborator, "BookRepository must not be null!");
-		this.publisherRepo = publisherRepo;
-	}*/
 	
 	@Override
-	public void saveBook(Book book) {
-		this.bookRepository.save(book);
+	public Book saveBook(Book book) {
+		Preconditions.checkNotNull(book);
+		return this.bookRepository.save(book);
 	}
 	
 	
@@ -48,6 +42,7 @@ public class BookServiceImpl implements BookService{
 
 	@Override
 	public boolean isBookExist(Book book) {
+		Preconditions.checkNotNull(book);
 		return this.bookRepository.existsById(book.getId());
 	}
 

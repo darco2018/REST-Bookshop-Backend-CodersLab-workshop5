@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
+import org.assertj.core.util.Preconditions;
 //import org.assertj.core.util.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -26,21 +27,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin  //TODO
 @RestController 
 @RequiredArgsConstructor(onConstructor=@__({@Autowired}))
 @RequestMapping("/books")
 public class BookController {
 	
-	//@Autowired
 	private final @NotNull BookService bookService;   
-	/* lombok REPLACES this:
-	public BookController(BookService bookService) {
-		this.bookService = bookService;
-	}*/
 	
-	@RequestMapping(value="/", method = RequestMethod.GET, 
-			produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Set<Book>> listBooks() {
         Set<Book> books = bookService.findAllBooks();
         if(books.isEmpty()){
@@ -51,8 +45,7 @@ public class BookController {
     }
 
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, 
-			produces = MediaType.APPLICATION_JSON_UTF8_VALUE) 
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE) 
 	public ResponseEntity<Book> viewBook(@PathVariable("id") long id) {
 		Book book = bookService.findBookById(id);
 		if (book == null) {
@@ -60,16 +53,11 @@ public class BookController {
 		}
 		
 		return new ResponseEntity<>(book, HttpStatus.OK); 
-		
-		//return RestPreconditions.checkFound( service.findOne( id ));
 	}
 	
-	// @ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(value = "/add", method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Book> createBook(@RequestBody Book book, UriComponentsBuilder ucBuilder) {
-		
-		//Preconditions.checkNotNull(book);
 		
 		if (book == null)
 			return ResponseEntity.noContent().build();
@@ -81,13 +69,10 @@ public class BookController {
 		Book saved = bookService.saveBook(book);
 		
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/books/{id}").buildAndExpand(book.getId()).toUri());
+		headers.setLocation(ucBuilder.path("/books/{id}")
+									.buildAndExpand(book.getId())
+									.toUri());
 		
-		/*
-		 ALTERNATYWNIE
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(book.getId()).toUri();
-		return ResponseEntity.created(location).build(); // Create a new builder with a CREATED status and a location header set to the given URI.
-		*/
 		return new ResponseEntity<>(saved, headers, HttpStatus.CREATED); 
 	}                                                                
 	
@@ -101,8 +86,9 @@ public class BookController {
 		}
 
 		bookService.deleteBookById(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT); // OK ?
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
 	}
+	
 	/*
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	   @ResponseStatus(HttpStatus.OK)
