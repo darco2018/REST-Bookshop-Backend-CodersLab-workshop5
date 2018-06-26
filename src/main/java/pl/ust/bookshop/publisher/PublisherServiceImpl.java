@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class PublisherServiceImpl implements PublisherService{
 
 	@Override
 	public Publisher savePublisher(Publisher publisher) {
+		Assert.notNull(publisher, "The author can't be null!");
 		return this.publisherRepo.save(publisher);
 	}
 
@@ -38,6 +40,7 @@ public class PublisherServiceImpl implements PublisherService{
 	
 	@Override
 	public boolean isPublisherExist(Publisher publisher) {
+		Assert.notNull(publisher, "The author can't be null!");
 		return this.publisherRepo.existsById(publisher.getId());
 	}
 

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class AuthorServiceImpl implements AuthorService{
 
 	@Override
 	public Author saveAuthor(Author author) {
+		Assert.notNull(author, "The author can't be null!");
 		return this.authorRepo.save(author);
 	}
 
@@ -41,6 +43,7 @@ public class AuthorServiceImpl implements AuthorService{
 	
 	@Override
 	public boolean isAuthorExist(Author author) {
+		Assert.notNull(author, "The author can't be null!");
 		return this.authorRepo.existsById(author.getId());
 	}
 
