@@ -3,7 +3,6 @@ package pl.ust.bookshop.book;
 import java.util.Optional;
 import java.util.Set;
 
-import org.assertj.core.util.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,6 @@ public class BookServiceImpl implements BookService{
 	
 	@Override
 	public Book saveBook(Book book) {
-		Preconditions.checkNotNull(book);
 		return this.bookRepository.save(book);
 	}
 	
@@ -42,7 +40,6 @@ public class BookServiceImpl implements BookService{
 
 	@Override
 	public boolean isBookExist(Book book) {
-		Preconditions.checkNotNull(book);
 		return this.bookRepository.existsById(book.getId());
 	}
 

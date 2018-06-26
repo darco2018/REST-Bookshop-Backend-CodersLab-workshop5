@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
 	
 	
-	@Value("${welcome.message}")
+	@Value("${welcome.message}") 
 	private String welcomeMessage;
 	
-	@RequestMapping("/test") // http://localhost:8081/bookshop/test
+	@RequestMapping("/welcome") // http://localhost:8080/bookshop/welcome
 	public String test() {
-		return "Test passed. " + welcomeMessage;
+		return "Test passed. "+ welcomeMessage;
 		
-	}
+	} 
 
 }
