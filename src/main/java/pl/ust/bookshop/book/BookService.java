@@ -1,6 +1,5 @@
 package pl.ust.bookshop.book;
 
-import java.util.Optional;
 import java.util.Set;
 
 public interface BookService {

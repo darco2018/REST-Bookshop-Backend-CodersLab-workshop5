@@ -1,8 +1,5 @@
 package pl.ust.bookshop;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -19,6 +16,9 @@ public class BookshopApp {
 	}
 	
 	/* UNCOMMENT ON THE FIRST RUN (PersistenceContext not loaded when @WebMvcTest is used in tests)
+	 
+	    import javax.persistence.EntityManager;
+		import javax.persistence.PersistenceContext;
 	 
 	  @PersistenceContext
 		private EntityManager entityManager;

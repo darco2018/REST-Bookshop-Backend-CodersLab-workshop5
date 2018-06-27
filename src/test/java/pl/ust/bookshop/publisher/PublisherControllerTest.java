@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.HashSet;
 import java.util.Set;
 
-import org.assertj.core.util.Sets;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
