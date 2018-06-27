@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,7 @@ public class PublisherController {
 		this.publisherService = publisherService;
 	}
 
-	@GetMapping("")
+	@GetMapping(value = "/", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Set<Publisher>> listPublishers() {
 		Set<Publisher> publishers = this.publisherService.findAllPublishers();
 		if (publishers.isEmpty()) {
@@ -36,7 +37,7 @@ public class PublisherController {
 		return new ResponseEntity<>(publishers, HttpStatus.OK);
 	}
 
-	@GetMapping("{id}")
+	@GetMapping(value = "{id}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Publisher> viewPublisher(@PathVariable long id) {
 		Publisher publisher = this.publisherService.findPublisherById(id);
 
@@ -47,18 +48,18 @@ public class PublisherController {
 		return new ResponseEntity<>(publisher, HttpStatus.OK);
 	}
 
-	@PostMapping("/add")
-	public ResponseEntity<Void> createPublisher(@RequestBody Publisher publisher, UriComponentsBuilder ucBuilder) {
+	@PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Publisher> createPublisher(@RequestBody Publisher publisher, UriComponentsBuilder ucBuilder) {
 
 		if (this.publisherService.isPublisherExist(publisher)) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 
-		this.publisherService.savePublisher(publisher);
+		Publisher saved = this.publisherService.savePublisher(publisher);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/publishers/{id}").buildAndExpand(publisher.getId()).toUri());
-		return new ResponseEntity<>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(saved, headers, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/delete/{id}")

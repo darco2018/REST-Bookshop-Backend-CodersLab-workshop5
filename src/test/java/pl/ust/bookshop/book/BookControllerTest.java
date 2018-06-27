@@ -4,8 +4,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.skyscreamer.jsonassert.JSONAssert;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,10 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -126,13 +122,13 @@ public class BookControllerTest {
 		}
 
 	@Test
-	public void shouldReturn404WhenWrongId() throws Exception {
+	public void shouldReturn404WhenFindWithWrongId() throws Exception {
 
 		BDDMockito.given(this.bookService.findBookById(Mockito.eq(-1L)))
 			.willThrow(new IllegalArgumentException());
 
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/books/-1"))
+				.get("/books/" + Mockito.eq(-1L)))
 				.andExpect(status().isNotFound());
 	}
 
