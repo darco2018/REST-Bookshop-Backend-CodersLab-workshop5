@@ -126,13 +126,13 @@ public class BookControllerTest {
 		}
 
 	@Test
-	public void shouldReturn404WhenWrongId() throws Exception {
+	public void shouldReturn404WhenFindWithWrongId() throws Exception {
 
 		BDDMockito.given(this.bookService.findBookById(Mockito.eq(-1L)))
 			.willThrow(new IllegalArgumentException());
 
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/books/-1"))
+				.get("/books/" + Mockito.eq(-1L)))
 				.andExpect(status().isNotFound());
 	}
 
