@@ -1,13 +1,14 @@
 package pl.ust.bookshop;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
+//@Import({SecurityConfig.class})
+@EnableAutoConfiguration(exclude = { SecurityAutoConfiguration.class })
 public class BookshopApp {
 	
 	
