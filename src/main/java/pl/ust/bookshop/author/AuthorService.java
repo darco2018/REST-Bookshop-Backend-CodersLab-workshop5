@@ -7,7 +7,7 @@ public interface AuthorService {
 	
 	Author saveAuthor(Author author);
     void deleteAuthorById(long id);
-    Author findById(long id);
+    Author findAuthorById(long id);
     List<Author> findAllAuthors(); 
     boolean isAuthorExist(Author author);
     

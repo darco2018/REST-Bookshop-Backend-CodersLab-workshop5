@@ -31,7 +31,7 @@ public class AuthorServiceImpl implements AuthorService{
 	}
 
 	@Override
-	public Author findById(long id) {
+	public Author findAuthorById(long id) {
 		Optional<Author> opt = this.authorRepo.findById(id);
 		return opt.orElseThrow(IllegalArgumentException::new);
 	}
