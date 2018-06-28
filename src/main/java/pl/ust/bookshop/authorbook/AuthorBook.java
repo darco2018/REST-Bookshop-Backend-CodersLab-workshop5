@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,6 +29,7 @@ public class AuthorBook implements Serializable {
 	@ManyToOne
 	private Author author;
 	
+	@JsonIgnore 
 	@Id
 	@ManyToOne
 	private Book book;

@@ -20,7 +20,9 @@ import org.hibernate.annotations.Check;
 import org.hibernate.annotations.LazyGroup;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Where;
+import org.hibernate.validator.constraints.ISBN;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -52,13 +54,14 @@ public class Book extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
 
-	// @JsonIgnore
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Publisher publisher;
   
 	@NaturalId
+	//TODO @ISBN 
 	@Check(constraints = "CASE WHEN isbn IS NOT NULL THEN LENGTH(isbn) = 13 ELSE true END")
-	@Column(unique = true)
+	@Column(unique = true, nullable=true) //TODO
 	private String isbn;
   
   	private  String title;  
@@ -72,6 +75,7 @@ public class Book extends BaseEntity {
 	@LazyGroup("lobs")
 	private Blob coverImage;
   
+	
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.LAZY)
 	private Set<AuthorBook> authors;
 	
