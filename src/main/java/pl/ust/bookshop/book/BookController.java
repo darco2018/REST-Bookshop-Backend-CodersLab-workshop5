@@ -30,6 +30,7 @@ public class BookController {
 	
 	@RequestMapping(value="/", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Set<Book>> listBooks() {
+		
         Set<Book> books = bookService.findAllBooks();
         if(books.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

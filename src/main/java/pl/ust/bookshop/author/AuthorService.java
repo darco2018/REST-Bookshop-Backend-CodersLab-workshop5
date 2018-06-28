@@ -1,6 +1,6 @@
 package pl.ust.bookshop.author;
 
-import java.util.List;
+import java.util.Set;
 
 
 public interface AuthorService {
@@ -8,7 +8,7 @@ public interface AuthorService {
 	Author saveAuthor(Author author);
     void deleteAuthorById(long id);
     Author findAuthorById(long id);
-    List<Author> findAllAuthors(); 
+    Set<Author> findAllAuthors(); 
     boolean isAuthorExist(Author author);
     
  /*

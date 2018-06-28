@@ -1,7 +1,7 @@
 package pl.ust.bookshop.author;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,9 +9,6 @@ import org.springframework.util.Assert;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import pl.ust.bookshop.author.Author;
-import pl.ust.bookshop.author.AuthorRepository;
-import pl.ust.bookshop.author.AuthorService;
 
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Service
@@ -37,7 +34,7 @@ public class AuthorServiceImpl implements AuthorService{
 	}
 
 	@Override
-	public List<Author> findAllAuthors() {
+	public Set<Author> findAllAuthors() {
 		return this.authorRepo.findAll();
 	}
 	
