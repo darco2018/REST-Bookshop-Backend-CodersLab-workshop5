@@ -1,0 +1,557 @@
+{
+	"info": {
+		"_postman_id": "e68b5470-f374-495a-9e41-3657abac7e8e",
+		"name": "Bookshop API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Books",
+			"description": "",
+			"item": [
+				{
+					"name": "Get a book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "89083049-bf40-4be8-808a-bd909b3f0869",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"JSON of the returned book contains id equal to 11\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(11);",
+									"});",
+									"",
+									"pm.test(\"Body matches title of the expected book\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Angel Eyes\");",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}books/11",
+							"host": [
+								"{{URL}}books"
+							],
+							"path": [
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all books",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bcb52e45-872b-41e4-b267-36c171716e3e",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Body matches title of the expected book 1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Angel Eyes\");",
+									"});",
+									"",
+									"pm.test(\"Body matches title of the expected book 2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Brown Beasts\");",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}books/",
+							"host": [
+								"{{URL}}books"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST a book",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1eaae6a6-779a-4f15-8067-bea79888decd",
+								"type": "text/javascript",
+								"exec": [
+									"pm.environment.set(\"randomIsbn\", Math.floor((Math.random() * 100000) + 1));",
+									"let num =  pm.environment.get(\"randomIsbn\");",
+									"console.log(num);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "2f922897-cfad-4370-9c7c-a3445ced44e9",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request with status code CREATED(201)\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+									"});",
+									"",
+									"pm.test(\"The body contains generated id of the saved book\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    console.log(\"The body has id of the saved book: \" + jsonData.id);",
+									"   pm.environment.set(\"newBookID\", jsonData.id);",
+									"});",
+									"",
+									"console.log(\"newID environment variable in POST is: \" + pm.environment.get(\"newBookID\"));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"isbn\": \"{{randomIsbn}}\",\n    \"title\": \"Angel Eyes\",\n    \"type\": null,\n    \"coverImage\": null,\n    \"deleted\": false,\n    \"new\": false\n}\n\n"
+						},
+						"url": {
+							"raw": "{{URL}}books/add",
+							"host": [
+								"{{URL}}books"
+							],
+							"path": [
+								"add"
+							]
+						},
+						"description": "id - dont specify it\nisbn - you must provide a unique number"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE a book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f4404d0b-957f-4554-ac8c-c45e8332b1c7",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful DELETE request with status code NO CONTTENT(204)\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5f277dbd-28e2-4628-87cc-0d8e4006a2b0",
+								"type": "text/javascript",
+								"exec": [
+									"console.log(\"NEW ID in DELETE: \" + pm.environment.get(\"newBookID\"));",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}books/delete/{{newBookID}}",
+							"host": [
+								"{{URL}}books"
+							],
+							"path": [
+								"delete",
+								"{{newBookID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Publishers",
+			"description": "",
+			"item": [
+				{
+					"name": "GET a publisher",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3da1019f-6672-418e-befe-afe2e525ed1a",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"JSON of the returned publisher contains id equal to 1\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(1);",
+									"});",
+									"",
+									"pm.test(\"Body matches name of the expected publisher\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Printing House\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}publishers/1",
+							"host": [
+								"{{URL}}publishers"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all publishers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "515c2c73-d900-49e8-9ef9-096b27b84f1a",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Body matches title of the expected publisher 1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Printing House\");",
+									"});",
+									"",
+									"pm.test(\"Body matches title of the expected publisher 2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Agora\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}publishers/",
+							"host": [
+								"{{URL}}publishers"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST a publisher",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2899b625-ef05-49eb-b312-079d6abc57e9",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ac7ce73-6a5e-4e05-bfa3-39a34e35c33d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request with status code CREATED(201)\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+									"});",
+									"",
+									"pm.test(\"The body returned field id of the saved publisher\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\");",
+									"     var jsonData = pm.response.json();",
+									"    console.log(\"The id of the saved publisher: \" + jsonData.id);",
+									"   pm.environment.set(\"newPublisherID\", jsonData.id);",
+									"   console.log(\"newPublisherID environment variable in POST is: \" + pm.environment.get(\"newPublisherID\"));",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n        \"name\": \"Super Books\",\n        \"deleted\": false,\n        \"new\": false\n }"
+						},
+						"url": {
+							"raw": "{{URL}}publishers/add",
+							"host": [
+								"{{URL}}publishers"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE a publisher",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a31c6169-5354-452f-8a95-2cd465a48f99",
+								"type": "text/javascript",
+								"exec": [
+									"console.log(\"NEW ID in DELETE: \" + pm.environment.get(\"newPublisherID\"));"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "50475823-1d53-4ad4-b270-7a891b09c185",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful DELETE request with status code NO CONTTENT(204)\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}publishers/delete/{{newPublisherID}}",
+							"host": [
+								"{{URL}}publishers"
+							],
+							"path": [
+								"delete",
+								"{{newPublisherID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authors",
+			"description": "",
+			"item": [
+				{
+					"name": "GET an author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "452d2d5c-94a4-4c18-a38b-e03b84e47a72",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"JSON of the returned author contains id equal to 5\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(5);",
+									"});",
+									"",
+									"pm.test(\"Body matches last name of the expected author\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Brown\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}authors/5",
+							"host": [
+								"{{URL}}authors"
+							],
+							"path": [
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all authors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "131b4a2c-5436-42df-882a-e80a68947f62",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Body matches last name of the expected author 1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Brown\");",
+									"});",
+									"",
+									"pm.test(\"Body matches last name of the expected author 2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Smith\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}authors/",
+							"host": [
+								"{{URL}}authors"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST an author",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "65a426d0-8f30-448a-9633-4d26f08b59c2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "bf3cf149-6827-43c8-b33c-0e913299c0f9",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request with status code CREATED(201)\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+									"});",
+									"",
+									"pm.test(\"The body returned field id of the saved author\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\");",
+									"     var jsonData = pm.response.json();",
+									"    console.log(\"The id of the saved author: \" + jsonData.id);",
+									"   pm.environment.set(\"newAuthorID\", jsonData.id);",
+									"   ",
+									"});",
+									"",
+									"console.log(\"newAuthorID environment variable in POST is: \" + pm.environment.get(\"newAuthorID\"));",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\" : \"Terry\",\n  \"lastName\" : \"Fletcher\",\n  \"email\" : \"terry@gmail.com\",\n  \"deleted\" : false,\n  \"new\" : false\n}"
+						},
+						"url": {
+							"raw": "{{URL}}authors/add",
+							"host": [
+								"{{URL}}authors"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE an author",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bba55f20-2336-411f-bd88-33a3639b6869",
+								"type": "text/javascript",
+								"exec": [
+									"console.log(\"NEW ID in DELETE: \" + pm.environment.get(\"newAuthorID\"));"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f320de20-ed45-4f46-9590-25d0d0483c80",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful DELETE request with status code NO CONTTENT(204)\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}publishers/delete/{{newAuthorID}}",
+							"host": [
+								"{{URL}}publishers"
+							],
+							"path": [
+								"delete",
+								"{{newAuthorID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
