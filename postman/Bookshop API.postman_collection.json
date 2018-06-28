@@ -92,10 +92,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1eaae6a6-779a-4f15-8067-bea79888decd",
+								"id": "ba5961d4-9805-45ef-a8ef-dc83e3b2c152",
 								"type": "text/javascript",
 								"exec": [
-									"pm.environment.set(\"randomIsbn\", Math.floor((Math.random() * 100000) + 1));",
+									"//pm.environment.set(\"randomIsbn\", Math.floor((Math.random() * 100000) + 1) + \"\" + Math.floor((Math.random() * 100000) + 1));",
+									"",
+									"pm.environment.set(\"randomIsbn\", \"81\" + Math.floor((Math.random() * 10000) + 1) + \"766-0\");",
 									"let num =  pm.environment.get(\"randomIsbn\");",
 									"console.log(num);"
 								]
@@ -457,10 +459,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "65a426d0-8f30-448a-9633-4d26f08b59c2",
+								"id": "7250c768-8101-4456-8338-4353989d7b29",
 								"type": "text/javascript",
 								"exec": [
-									""
+									"pm.environment.set(\"randomEmail\", Math.floor((Math.random() * 100000) + 1) + \"@gmail.com\");",
+									"let email =  pm.environment.get(\"randomEmail\");",
+									"console.log(email);"
 								]
 							}
 						},
@@ -491,10 +495,15 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"firstName\" : \"Terry\",\n  \"lastName\" : \"Fletcher\",\n  \"email\" : \"terry@gmail.com\",\n  \"deleted\" : false,\n  \"new\" : false\n}"
+							"raw": "{\n  \"firstName\" : \"Terry\",\n  \"lastName\" : \"Fletcher\",\n  \"email\" : \"{{randomEmail}}\",\n  \"deleted\" : false,\n  \"new\" : false\n}"
 						},
 						"url": {
 							"raw": "{{URL}}authors/add",
@@ -539,9 +548,9 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{URL}}publishers/delete/{{newAuthorID}}",
+							"raw": "{{URL}}authors/delete/{{newAuthorID}}",
 							"host": [
-								"{{URL}}publishers"
+								"{{URL}}authors"
 							],
 							"path": [
 								"delete",

@@ -59,9 +59,9 @@ public class Book extends BaseEntity {
 	private Publisher publisher;
   
 	@NaturalId
-	//TODO @ISBN 
+	@ISBN 
 	@Check(constraints = "CASE WHEN isbn IS NOT NULL THEN LENGTH(isbn) = 13 ELSE true END")
-	@Column(unique = true, nullable=true) //TODO
+	@Column(unique = true, nullable=false) 
 	private String isbn;
   
   	private  String title;  

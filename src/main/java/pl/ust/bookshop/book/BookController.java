@@ -55,7 +55,9 @@ public class BookController {
 	public ResponseEntity<Book> createBook(@RequestBody Book book, UriComponentsBuilder ucBuilder) {
 		
 		if (book == null)
-			return ResponseEntity.noContent().build();
+			return ResponseEntity
+					.status(HttpStatus.NO_CONTENT)
+					.build();
 		
 		if (bookService.isBookExist(book)) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT); 
