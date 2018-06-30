@@ -3,23 +3,8 @@ package pl.ust.bookshop;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Import;
-
-import pl.ust.bookshop.security.DatabaseSecurityConfig;
-
-
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-import org.springframework.stereotype.Component;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 
 @SpringBootApplication
-@Import({DatabaseSecurityConfig.class})
 public class BookshopApp {
 
 	/*

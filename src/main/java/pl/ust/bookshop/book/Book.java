@@ -59,7 +59,7 @@ public class Book extends BaseEntity {
 	private Publisher publisher;
   
 	@NaturalId
-	@ISBN 
+	// @ISBN  messageTemplate='{org.hibernate.validator.constraints.ISBN.message}'
 	@Check(constraints = "CASE WHEN isbn IS NOT NULL THEN LENGTH(isbn) = 13 ELSE true END")
 	@Column(unique = true, nullable=false) 
 	private String isbn;
