@@ -3,9 +3,12 @@ package pl.ust.bookshop;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Import;
+
+import pl.ust.bookshop.security.DatabaseSecurityConfig;
 
 
-/*
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -13,15 +16,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;*/
+import org.springframework.core.annotation.Order;
 
 @SpringBootApplication
+@Import({DatabaseSecurityConfig.class})
 public class BookshopApp {
-	
-/* //UNCOMMENT ON THE FIRST RUN TO POPULATE DB (Commented off because PersistenceContext not loaded when @WebMvcTest is used in tests)
+
+	/*
+	//UNCOMMENT ON THE FIRST RUN TO POPULATE DB (Commented off because PersistenceContext not loaded when @WebMvcTest is used in tests)
 	@PersistenceContext
 	private EntityManager entityManager;
-
+	
 	@Component
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	class DBPopulatorRunner implements ApplicationRunner {
@@ -34,8 +39,8 @@ public class BookshopApp {
 			DBPopulator.populateBooks(entityManager);
 		}
 
-	}*/
-	
+	}
+	*/
 	
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(BookshopApp.class, args);
