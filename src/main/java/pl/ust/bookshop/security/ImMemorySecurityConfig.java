@@ -1,5 +1,6 @@
 package pl.ust.bookshop.security;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -7,10 +8,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-@Configuration
+/*@Configuration
 @EnableWebSecurity // enables httpbasic and form authentication, renders login page automatically
+*/
 // remember to Import this class in AppConfig.java
-public class SecurityConfig  extends WebSecurityConfigurerAdapter {
+public class ImMemorySecurityConfig  extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder authMgr) throws Exception {
@@ -26,7 +28,6 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 	// authorization
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		
 		
 		http
 		.authorizeRequests() 

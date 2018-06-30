@@ -7,11 +7,11 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 
-import pl.ust.bookshop.security.SecurityConfig;
+import pl.ust.bookshop.security.ImMemorySecurityConfig;
+import pl.ust.bookshop.security.DatabaseSecurityConfig;
 
 @SpringBootApplication
-@Import({SecurityConfig.class})
-//@EnableAutoConfiguration(exclude = { SecurityAutoConfiguration.class })
+@Import({DatabaseSecurityConfig.class})
 public class BookshopApp {
 	
 	
@@ -22,7 +22,8 @@ public class BookshopApp {
 		System.err.println(ctx); // AnnotationConfigServletWebServerApplicationContext
 	}
 	
-	/* UNCOMMENT ON THE FIRST RUN (PersistenceContext not loaded when @WebMvcTest is used in tests)
+	/* UNCOMMENT ON THE FIRST RUN TO POPULATE THE DATABASE
+	  (PersistenceContext not loaded when @WebMvcTest is used in tests)
 	 
 	  @PersistenceContext
 		private EntityManager entityManager;
