@@ -53,21 +53,14 @@ public class DatabaseSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		.antMatchers("/protectedByUserRole*").hasRole(Role.USER.value())
 		
-		.antMatchers("/**","/notprotected*", "/welcome").permitAll() // "/*" - enter all pages
-		.and()
+		.antMatchers("/**","/notprotected*", "/welcome").permitAll() 
+		/*.and()
 			.formLogin().loginPage("/login").permitAll() //TODO provide custom login page
 		.and()
-			.logout().permitAll()
+			.logout().permitAll()*/
 		.and()
 			.httpBasic();
 	}
 	// Spring Boot relies on Spring Security’s content-negotiation strategy to determine whether to use httpBasic or formLogin
-	
-//	@Bean
-//	public PasswordEncoder passwordEncoder() {
-//		return new BCryptPasswordEncoder(11);
-//	}
-	
-	
 
 }

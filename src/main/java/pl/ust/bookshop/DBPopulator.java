@@ -108,7 +108,6 @@ public class DBPopulator {
 
 	}
 	
-	@SuppressWarnings("unchecked")
 	static void populateUsers(EntityManager entityManager) {
 		LOG.info("---------------Populating the Users-----------------------");
 		
@@ -132,7 +131,6 @@ public class DBPopulator {
 		
 	}	
 	
-	@SuppressWarnings("unchecked")
 	static void populateUserRoles(EntityManager entityManager) {
 		LOG.info("---------------Populating the UserRoles-----------------------");
 		

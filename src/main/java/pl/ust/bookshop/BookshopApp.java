@@ -3,10 +3,19 @@ package pl.ust.bookshop;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+/*
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;*/
 
 @SpringBootApplication
 public class BookshopApp {
-
+/*
 	
 	//UNCOMMENT ON THE FIRST RUN TO POPULATE DB (Commented off because PersistenceContext not loaded when @WebMvcTest is used in tests)
 	@PersistenceContext
@@ -27,7 +36,7 @@ public class BookshopApp {
 		}
 
 	}
-	
+	*/
 	
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(BookshopApp.class, args);
