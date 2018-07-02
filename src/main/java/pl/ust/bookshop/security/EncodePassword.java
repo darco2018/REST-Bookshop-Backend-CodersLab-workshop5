@@ -2,6 +2,8 @@ package pl.ust.bookshop.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import pl.ust.bookshop.user.Role;
+
 public class EncodePassword {
 		
 	public static void main(String[] args) {

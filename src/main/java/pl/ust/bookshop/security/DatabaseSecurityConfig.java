@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import pl.ust.bookshop.user.Role;
+
 @Configuration
 @EnableWebSecurity // enables httpbasic and form authentication, renders login page automatically
 // remember to Import this class in AppConfig.java

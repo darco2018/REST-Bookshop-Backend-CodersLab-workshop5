@@ -1,4 +1,4 @@
-package pl.ust.bookshop.security;
+package pl.ust.bookshop.user;
 
 import lombok.Getter;
 
