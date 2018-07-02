@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 @SpringBootApplication
 public class BookshopApp {
 
-	/*
+	
 	//UNCOMMENT ON THE FIRST RUN TO POPULATE DB (Commented off because PersistenceContext not loaded when @WebMvcTest is used in tests)
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -22,10 +22,12 @@ public class BookshopApp {
 			DBPopulator.populatePublishers(entityManager);
 			DBPopulator.populateAuthors(entityManager);
 			DBPopulator.populateBooks(entityManager);
+			DBPopulator.populateUsers(entityManager);
+			DBPopulator.populateUserRoles(entityManager);
 		}
 
 	}
-	*/
+	
 	
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(BookshopApp.class, args);

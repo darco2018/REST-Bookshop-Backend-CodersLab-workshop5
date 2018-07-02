@@ -20,7 +20,6 @@ import org.hibernate.annotations.Check;
 import org.hibernate.annotations.LazyGroup;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Where;
-import org.hibernate.validator.constraints.ISBN;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -48,8 +47,6 @@ import pl.ust.bookshop.publisher.Publisher;
 @Table( indexes = @Index(name = "idx_book_title", 
 						columnList = "title", 
 						unique = false)) // ,
-		//uniqueConstraints =  @UniqueConstraint( name = "uc_title_authorid", 
-		//										columnNames = { "title", "author_id" }))
 public class Book extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
@@ -59,11 +56,11 @@ public class Book extends BaseEntity {
 	private Publisher publisher;
   
 	@NaturalId
-	// @ISBN  messageTemplate='{org.hibernate.validator.constraints.ISBN.message}'
+	//TODO @ISBN  messageTemplate='{org.hibernate.validator.constraints.ISBN.message}'
 	@Check(constraints = "CASE WHEN isbn IS NOT NULL THEN LENGTH(isbn) = 13 ELSE true END")
 	@Column(unique = true, nullable=false) 
 	private String isbn;
-  
+	
   	private  String title;  
   
   	//@ColumnDefault("unassigned") //- not working when prepopulating: MySQLSyntaxErrorException: Table 'a_bookshop.books' doesn't exist
