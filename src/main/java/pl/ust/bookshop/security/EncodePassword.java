@@ -74,19 +74,20 @@ insert into users(username, password, enabled) values('lib', '$2a$10$r29SYRp3TlJ
 insert into users(username, password, enabled) values('user', '$2a$10$40AVFuSQ3vrz.9i2pPufguOSBrFBGUYszQyjrPn1f1mjOADVC1x6S', true);
 
 
-insert into user_roles(username, user_role) values('dev', 'ROLE_DEVELOPER');
-insert into user_roles(username, user_role) values('dev', 'ROLE_ADMIN');
-insert into user_roles(username, user_role) values('dev', 'ROLE_LIBRARIAN');
-insert into user_roles(username, user_role) values('dev', 'ROLE_USER');
+insert ignore into user_roles(id, username, user_role) values(default, 'dev', 'ROLE_DEVELOPER');
+insert ignore into user_roles(id, username, user_role) values(default, 'dev', 'ROLE_ADMIN');
+insert into user_roles(id, username, user_role) values(default, 'dev', 'ROLE_LIBRARIAN');
+insert into user_roles(id, username, user_role) values(default, 'dev', 'ROLE_USER');
 
-insert into user_roles(username, user_role) values('admin', 'ROLE_ADMIN');
-insert into user_roles(username, user_role) values('admin', 'ROLE_LIBRARIAN');
-insert into user_roles(username, user_role) values('admin', 'ROLE_USER');
+insert into user_roles(id, username, user_role) values(default, 'admin', 'ROLE_ADMIN');
+insert into user_roles(id, username, user_role) values(default, 'admin', 'ROLE_LIBRARIAN');
+insert into user_roles(id, username, user_role) values(default, 'admin', 'ROLE_USER');
 
+insert into user_roles(id, username, user_role) values(default, 'lib', 'ROLE_LIBRARIAN');
+insert into user_roles(id, username, user_role) values(default, 'lib', 'ROLE_USER');
 
-insert into user_roles(username, user_role) values('lib', 'ROLE_LIBRARIAN');
-insert into user_roles(username, user_role) values('lib', 'ROLE_USER');
+insert into user_roles(id, username, user_role) values(default, 'user', 'ROLE_USER');
 
-insert into user_roles(username, user_role) values('user', 'ROLE_USER');
+mysql> COMMIT;
 
-mysql> COMMIT;*/
+*/

@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class SecurityController {
 	
+	@RequestMapping("login")
+	public String login() {
+		return "this should be the loggin page";
+	}
+	
 	@RequestMapping
 	public String hello() {
 		return "Hello";
