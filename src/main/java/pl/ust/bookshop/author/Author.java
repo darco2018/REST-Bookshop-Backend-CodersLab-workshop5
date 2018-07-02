@@ -10,7 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Where;
@@ -41,15 +42,17 @@ public class Author extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
 
-	@NotEmpty
+	@NotBlank
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
 
-	@NotEmpty
+	@NotBlank
 	@Column(name = "last_name", nullable = false)
 	private String lastName;
 	
-	@NaturalId(mutable = true)
+	@Email
+	@NaturalId
+	@Column(unique = true, nullable=true) 
 	private String email;
 	
 	@JsonIgnore // prevents recursion when calling books

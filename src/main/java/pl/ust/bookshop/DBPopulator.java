@@ -113,16 +113,20 @@ public class DBPopulator {
 		LOG.info("---------------Populating the Users-----------------------");
 		
 		entityManager.persist(User.builder().username("dev")
-				.password("$2a$10$LTFSrszGtMGLKA4DfU1YhetB.VCFZELQKNL1xfVu1DvXUe/LZ3PQi").enabled(true).build());
+				.password("$2a$10$LTFSrszGtMGLKA4DfU1YhetB.VCFZELQKNL1xfVu1DvXUe/LZ3PQi")
+				.email("dev@gamil.com").enabled(true).build());
 		
 		entityManager.persist(User.builder().username("admin")
-				.password("$2a$10$AMpy2QfYz2pR00.BtkpmcOB6dV0eg7r77WSJkVxsWSFIAM/nfHSKa").enabled(true).build());
+				.password("$2a$10$AMpy2QfYz2pR00.BtkpmcOB6dV0eg7r77WSJkVxsWSFIAM/nfHSKa")
+				.email("admin@gamil.com").enabled(true).build());
 		
 		entityManager.persist(User.builder().username("lib")
-				.password("$2a$10$r29SYRp3TlJ.chPF8qrH3eQ23.MPjR75Oc.clCB8eMYk/qM5n1Tia").enabled(true).build());
+				.password("$2a$10$r29SYRp3TlJ.chPF8qrH3eQ23.MPjR75Oc.clCB8eMYk/qM5n1Tia")
+				.email("lib@gamil.com").enabled(true).build());
 		
 		entityManager.persist(User.builder().username("user")
-				.password("$2a$10$40AVFuSQ3vrz.9i2pPufguOSBrFBGUYszQyjrPn1f1mjOADVC1x6S").enabled(true).build());
+				.password("$2a$10$40AVFuSQ3vrz.9i2pPufguOSBrFBGUYszQyjrPn1f1mjOADVC1x6S")
+				.email("user@gamil.com").enabled(true).build());
 		
 		entityManager.flush();
 		
@@ -132,19 +136,19 @@ public class DBPopulator {
 	static void populateUserRoles(EntityManager entityManager) {
 		LOG.info("---------------Populating the UserRoles-----------------------");
 		
-		entityManager.persist(UserRole.builder().username("dev").userRole("ROLE_DEVELOPER").build());
-		entityManager.persist(UserRole.builder().username("dev").userRole("ROLE_ADMIN").build());
-		entityManager.persist(UserRole.builder().username("dev").userRole("ROLE_LIBRARIAN").build());
-		entityManager.persist(UserRole.builder().username("dev").userRole("ROLE_USER").build());
+		entityManager.persist(UserRole.builder().username("dev").role("ROLE_DEVELOPER").build());
+		entityManager.persist(UserRole.builder().username("dev").role("ROLE_ADMIN").build());
+		entityManager.persist(UserRole.builder().username("dev").role("ROLE_LIBRARIAN").build());
+		entityManager.persist(UserRole.builder().username("dev").role("ROLE_USER").build());
 		
-		entityManager.persist(UserRole.builder().username("admin").userRole("ROLE_ADMIN").build());
-		entityManager.persist(UserRole.builder().username("admin").userRole("ROLE_LIBRARIAN").build());
-		entityManager.persist(UserRole.builder().username("admin").userRole("ROLE_USER").build());
+		entityManager.persist(UserRole.builder().username("admin").role("ROLE_ADMIN").build());
+		entityManager.persist(UserRole.builder().username("admin").role("ROLE_LIBRARIAN").build());
+		entityManager.persist(UserRole.builder().username("admin").role("ROLE_USER").build());
 		
-		entityManager.persist(UserRole.builder().username("lib").userRole("ROLE_LIBRARIAN").build());
-		entityManager.persist(UserRole.builder().username("lib").userRole("ROLE_USER").build());
+		entityManager.persist(UserRole.builder().username("lib").role("ROLE_LIBRARIAN").build());
+		entityManager.persist(UserRole.builder().username("lib").role("ROLE_USER").build());
 		
-		entityManager.persist(UserRole.builder().username("user").userRole("ROLE_USER").build());
+		entityManager.persist(UserRole.builder().username("user").role("ROLE_USER").build());
 		
 	}
 
