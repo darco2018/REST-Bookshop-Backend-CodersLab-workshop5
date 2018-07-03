@@ -41,18 +41,12 @@ public class DatabaseSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception{
 		http
 		.authorizeRequests()
-		.antMatchers("/**/lib/**").hasRole(Role.DEVELOPER.value())
-		.antMatchers("/**/lib/**").hasRole(Role.ADMIN.value())
 		.antMatchers("/**/lib/**").hasRole(Role.LIBRARIAN.value())
-		
-		.antMatchers("/**/admin/**").hasRole(Role.DEVELOPER.value())
 		.antMatchers("/**/admin/**").hasRole(Role.ADMIN.value())
 		
 		.antMatchers("/protectedByDeveloperAdminRole*").hasRole(Role.DEVELOPER.value())
 		.antMatchers("/protectedByDeveloperAdminRole*").hasRole(Role.ADMIN.value())
-		
 		.antMatchers("/protectedByUserRole*").hasRole(Role.USER.value())
-		
 		.antMatchers("/**","/notprotected*", "/welcome").permitAll() 
 		/*.and()
 			.formLogin().loginPage("/login").permitAll() //TODO provide custom login page
