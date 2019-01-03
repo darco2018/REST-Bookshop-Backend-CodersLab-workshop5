@@ -6,5 +6,10 @@ pipeline {
         echo 'Finished run of Boookshop Backend'
       }
     }
+    stage('stage 3') {
+      steps {
+        timestamps()
+      }
+    }
   }
 }
